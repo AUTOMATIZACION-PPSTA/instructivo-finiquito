@@ -1384,7 +1384,7 @@
             lastTouchEnd = now;
         }, false);
 
-        // ========== SISTEMA DE LOGIN - JSONP (COMPATIBLE CON TODOS LOS MÓVILES) ========== 
+        // ========== SISTEMA DE LOGIN - GOOGLE APPS SCRIPT CORREGIDO ========== 
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAXFwMe2ERPNhEQQNfn4dU9_QeLqnVA1MAtAu5gJTPPU1wFOYUhCkSDzjCgVDZPiTwZg/exec';
 
         function normalizarTexto(texto) {
@@ -1399,28 +1399,29 @@
             validarUsuario();
         });
 
-        // Función JSONP - Compatible con Safari, Chrome móvil, WhatsApp
+        // JSONP para compatibilidad móvil
         function peticionJSONP(url, callback) {
             const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
             window[callbackName] = function(data) {
                 delete window[callbackName];
-                document.body.removeChild(script);
+                const script = document.getElementById('jsonp-script');
+                if (script) document.body.removeChild(script);
                 callback(null, data);
             };
             
             const script = document.createElement('script');
+            script.id = 'jsonp-script';
             script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
             script.onerror = function() {
                 delete window[callbackName];
-                document.body.removeChild(script);
+                if (script.parentNode) document.body.removeChild(script);
                 callback(new Error('Error de red'), null);
             };
             
-            // Timeout de 15 segundos
             setTimeout(function() {
                 if (window[callbackName]) {
                     delete window[callbackName];
-                    document.body.removeChild(script);
+                    if (script.parentNode) document.body.removeChild(script);
                     callback(new Error('Timeout'), null);
                 }
             }, 15000);
@@ -1448,7 +1449,6 @@
             loadingMessage.textContent = '🔄 Validando credenciales...';
             loadingMessage.classList.add('show');
 
-            // Construir URL con parámetros
             const params = '?nombre=' + encodeURIComponent(nombre) + 
                           '&apellido1=' + encodeURIComponent(apellido1) + 
                           '&apellido2=' + encodeURIComponent(apellido2) +
@@ -1456,7 +1456,6 @@
             
             const url = APPS_SCRIPT_URL + params;
 
-            // Llamar con JSONP
             peticionJSONP(url, function(error, resultado) {
                 if (error) {
                     loadingMessage.classList.remove('show');
@@ -1468,7 +1467,7 @@
                     return;
                 }
 
-                if (resultado.success === true) {
+                if (resultado && resultado.success === true) {
                     loadingMessage.textContent = '✓ ¡Acceso concedido!';
                     setTimeout(function() {
                         document.getElementById('loginScreen').style.display = 'none';
