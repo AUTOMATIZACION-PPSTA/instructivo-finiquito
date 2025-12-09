@@ -1,0 +1,1491 @@
+<!DO<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Guía de Finiquito - Constructora B&R</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1565C0 0%, #0D47A1 100%);
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ========== ESTILOS LOGIN ========== */
+        #loginScreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .login-logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .login-container h1 {
+            color: #1565C0;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .login-container .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.5);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .loading-message {
+            background: #E3F2FD;
+            color: #1565C0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            border-left: 4px solid #2196F3;
+        }
+
+        .loading-message.show {
+            display: block;
+        }
+
+        #instructivoContent {
+            display: none;
+        }
+        /* ========== FIN ESTILOS LOGIN ========== */
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2196F3 0%, #1976D2 100%);
+        }
+
+        .logo-container {
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c62828;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .intro-section {
+            padding: 40px 30px;
+            background: linear-gradient(to bottom, #E3F2FD 0%, white 100%);
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #1565C0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .intro-section p {
+            font-size: 1.1em;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .no-clave-button {
+            display: inline-block;
+            text-align: center;
+            background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 100%);
+            color: white !important;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none !important;
+            box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer !important;
+            border: none;
+            min-height: 60px;
+            line-height: 1.4;
+            /* CRITICAL para iOS Safari */
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: rgba(255, 111, 0, 0.5);
+            position: relative;
+            z-index: 100;
+        }
+
+        .no-clave-button:hover,
+        .no-clave-button:active,
+        .no-clave-button:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 111, 0, 0.5);
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        .no-clave-button:active {
+            transform: translateY(-1px);
+            background: linear-gradient(135deg, #FF8F00 0%, #FFA726 100%);
+        }
+
+        .timeline-container {
+            padding: 0;
+            position: relative;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .timeline-content-wrapper {
+            padding: 30px;
+            position: relative;
+        }
+
+        .timeline-header {
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+            background: white;
+            padding: 20px 0 30px 0;
+            margin-bottom: 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .timeline-title {
+            text-align: center;
+            color: #1565C0;
+            font-size: 2em;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 0;
+            border: 3px solid #2196F3;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #2196F3 0%, #1976D2 100%);
+            top: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+            margin-left: 0;
+            text-align: left;
+        }
+
+        .timeline-content {
+            position: relative;
+            width: 45%;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #E3F2FD;
+            transition: all 0.3s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .timeline-content:hover {
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .timeline-content a {
+            word-break: break-word;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.4);
+            border: 4px solid white;
+            z-index: 10;
+        }
+
+        .worker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 120px;
+            z-index: 1002;
+            transition: top 2s ease-out;
+            top: 0;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .timeline-content h3 {
+            color: #1565C0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .timeline-content ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .timeline-content li {
+            margin: 10px 0;
+        }
+
+        .button-primary {
+            display: inline-block;
+            background: #2196F3;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .button-primary:hover,
+        .button-primary:active {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .alert-box {
+            background: #FFF3CD;
+            border-left: 5px solid #FFC107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #D4EDDA;
+            border-left: 5px solid #28A745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box {
+            background: #E3F2FD;
+            border-left: 5px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 0;
+            border-radius: 20px;
+            max-width: 900px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+            padding: 10px;
+            min-width: 44px;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .close:hover,
+        .close:active {
+            opacity: 0.7;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            border-color: #FF8F00;
+            box-shadow: 0 4px 15px rgba(255, 143, 0, 0.2);
+        }
+
+        .option-card h3 {
+            color: #FF6F00;
+            margin-bottom: 15px;
+        }
+
+        .step-list {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .step-list-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: #E3F2FD;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+                margin-bottom: 10px;
+            }
+
+            .header > div:nth-child(3) {
+                font-size: 0.75em !important;
+                padding: 6px 15px !important;
+                margin-top: 8px !important;
+            }
+
+            .header > div:nth-child(4) {
+                font-size: 1em !important;
+                margin-top: 10px !important;
+            }
+
+            .intro-section {
+                padding: 25px 15px;
+            }
+
+            .intro-section h2 {
+                font-size: 1.3em;
+            }
+
+            .intro-section p {
+                font-size: 1em;
+            }
+
+            .intro-section > div:first-child {
+                padding: 15px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .intro-section > div:first-child h3 {
+                font-size: 1.1em !important;
+            }
+
+            .intro-section > div:first-child .flex-container {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
+
+            .intro-section > div:first-child span {
+                font-size: 2em !important;
+            }
+
+            .intro-section > div:first-child > div > div {
+                text-align: center !important;
+            }
+
+            .no-clave-button {
+                font-size: 1em;
+                padding: 15px 25px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .timeline-container {
+                padding: 0;
+                min-height: auto;
+            }
+
+            .timeline-content-wrapper {
+                padding: 20px 15px;
+            }
+
+            .timeline-header {
+                padding: 15px 0 20px 0;
+                margin-bottom: 15px;
+            }
+
+            .timeline-title {
+                font-size: 1.4em;
+                padding: 15px 10px;
+            }
+
+            .timeline-content-wrapper > div:nth-child(2) {
+                padding: 15px !important;
+                margin-bottom: 20px !important;
+                font-size: 0.9em !important;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                margin-bottom: 40px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 70px) !important;
+                margin-left: 70px !important;
+                margin-right: 0 !important;
+                text-align: left !important;
+                padding: 20px 15px;
+            }
+
+            .timeline-content h3 {
+                font-size: 1.1em;
+            }
+
+            .timeline-content ul {
+                margin-left: 15px;
+                font-size: 0.95em;
+            }
+
+            .timeline-content li {
+                margin: 8px 0;
+            }
+
+            .timeline-icon {
+                left: 30px;
+                transform: translateX(0);
+                width: 50px;
+                height: 50px;
+                font-size: 1.2em;
+            }
+
+            .worker {
+                left: 30px;
+                transform: translateX(0);
+                width: 60px;
+                height: 75px;
+            }
+
+            .button-primary {
+                font-size: 0.9em;
+                padding: 10px 20px;
+                display: block;
+                text-align: center;
+            }
+
+            .alert-box, .success-box, .info-box {
+                padding: 12px;
+                font-size: 0.9em;
+                margin: 12px 0;
+            }
+
+            .modal-content {
+                margin: 10px;
+                width: calc(100% - 20px);
+                border-radius: 15px;
+            }
+
+            .modal-header {
+                padding: 20px 15px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.4em;
+            }
+
+            .modal-header p {
+                font-size: 0.9em;
+            }
+
+            .modal-body {
+                padding: 20px 15px;
+            }
+
+            .modal-body > p:first-child {
+                font-size: 1em !important;
+                margin-bottom: 20px !important;
+            }
+
+            .modal-body > div:first-child {
+                padding: 12px !important;
+                margin-bottom: 20px !important;
+                font-size: 0.9em !important;
+            }
+
+            .option-card {
+                padding: 18px;
+                margin-bottom: 20px;
+            }
+
+            .option-card h3 {
+                font-size: 1.1em;
+            }
+
+            .option-card p {
+                font-size: 0.95em;
+            }
+
+            .step-list {
+                padding: 15px;
+            }
+
+            .step-list-item {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+
+            .footer {
+                padding: 20px 15px;
+                font-size: 0.9em;
+            }
+
+            .footer > div:first-child {
+                padding: 15px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .footer > div:first-child h4 {
+                font-size: 1em !important;
+            }
+
+            .footer > div:first-child p {
+                font-size: 0.85em !important;
+            }
+
+            .footer p {
+                font-size: 0.85em;
+            }
+
+            .close {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.1em;
+            }
+
+            .intro-section h2 {
+                font-size: 1.2em;
+            }
+
+            .timeline-content-wrapper {
+                padding: 15px 10px;
+            }
+
+            .timeline-header {
+                padding: 12px 0 15px 0;
+                margin-bottom: 12px;
+            }
+
+            .timeline-title {
+                font-size: 1.2em;
+                padding: 12px 8px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 65px) !important;
+                margin-left: 65px !important;
+            }
+
+            .timeline-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1em;
+            }
+
+            .worker {
+                width: 50px;
+                height: 62px;
+            }
+
+            .no-clave-button {
+                font-size: 0.95em;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== PANTALLA DE LOGIN ========== -->
+    <div id="loginScreen">
+        <div class="login-container">
+            <div class="login-logo">
+                <span class="login-logo-text">B&R</span>
+            </div>
+            <h1>Guía de Finiquito</h1>
+            <p class="subtitle">Por favor identifícate para acceder al instructivo</p>
+            
+            <form id="loginForm" onsubmit="return false;">
+                <div class="input-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" placeholder="Ej: Juan" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="apellido1">Primer Apellido:</label>
+                    <input type="text" id="apellido1" placeholder="Ej: Pérez" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="apellido2">Segundo Apellido:</label>
+                    <input type="text" id="apellido2" placeholder="Ej: González" required>
+                </div>
+                
+                <button type="submit" class="login-button" id="loginButton">
+                    Acceder al Instructivo
+                </button>
+            </form>
+            
+            <div class="loading-message" id="loadingMessage">
+                ⏳ Verificando tu información...
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                ❌ No te encontramos en nuestra lista. Por favor verifica tus datos o contacta a RRHH.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== INSTRUCTIVO (oculto hasta login exitoso) ========== -->
+    <div id="instructivoContent">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <span class="logo-text">B&R</span>
+                </div>
+            </div>
+            <h1>📋 Guía para Tramitar tu Finiquito</h1>
+            <div style="display: inline-block; background: rgba(255,193,7,0.3); padding: 8px 20px; border-radius: 20px; margin-top: 10px; border: 2px solid #FFC107;">
+                <span style="font-size: 0.9em; font-weight: bold; color: #FFF;">📘 INSTRUCTIVO INTERNO - NO ES SITIO OFICIAL DEL GOBIERNO</span>
+            </div>
+            <div style="font-size: 1.2em; margin-top: 15px;">CONSTRUCTORA B&R Ltda.</div>
+            <div class="subtitle">Elaborada por: Ing. Tabata Contreras</div>
+        </div>
+
+        <!-- Intro Section -->
+        <div class="intro-section">
+            <div style="background: white; border: 3px solid #2196F3; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
+                    <span style="font-size: 3em;">📘</span>
+                    <div style="text-align: left;">
+                        <h3 style="color: #1565C0; margin: 0; font-size: 1.4em;">INSTRUCTIVO INTERNO</h3>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 0.95em;">Guía elaborada por CONSTRUCTORA B&R Ltda.</p>
+                    </div>
+                </div>
+                <div style="background: #FFF9C4; padding: 15px; border-radius: 8px; border-left: 4px solid #FFC107;">
+                    <p style="margin: 0; color: #333; font-size: 0.95em;">
+                        <strong>⚠️ Importante:</strong> Esta es una guía interactiva diseñada por nuestra empresa para ayudarte con tu trámite de finiquito. 
+                        <strong>No es una página oficial del Estado.</strong> Para realizar el trámite oficial, deberás ingresar a los sitios web del gobierno que te indicamos en cada paso.
+                    </p>
+                </div>
+            </div>
+
+            <h2>¡Bienvenido/a al proceso de finiquito!</h2>
+            <p>Esta guía te acompañará paso a paso en el proceso de firma electrónica de tu finiquito usando Clave Única. Es rápido, seguro y lo puedes hacer desde tu casa.</p>
+            
+            <button type="button" class="no-clave-button" onclick="openModal(); return false;">
+                ⚠️ ¿No tienes Clave Única o la olvidaste? Haz clic aquí
+            </button>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-container">
+            <div class="timeline-content-wrapper">
+                <div class="timeline-header">
+                    <h2 class="timeline-title">🚀 Proceso de Finiquito Electrónico</h2>
+                </div>
+
+                <div style="background: white; border: 2px dashed #2196F3; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <p style="margin: 0; color: #1565C0; font-weight: bold;">
+                        💡 Al hacer clic en los botones de cada paso, serás dirigido a las páginas oficiales del gobierno para realizar el trámite.
+                    </p>
+                </div>
+            
+                <div class="timeline">
+                <!-- Worker SVG -->
+                <svg class="worker" id="worker" viewBox="0 0 100 120">
+                    <!-- Hard Hat -->
+                    <ellipse cx="50" cy="25" rx="22" ry="8" fill="#FDD835"/>
+                    <path d="M 28 25 Q 28 15 50 15 Q 72 15 72 25 L 72 30 Q 72 35 50 35 Q 28 35 28 30 Z" fill="#FBC02D"/>
+                    <rect x="48" y="12" width="4" height="6" fill="#F57C00" rx="2"/>
+                    
+                    <!-- Head -->
+                    <circle cx="50" cy="45" r="12" fill="#FFCC80"/>
+                    
+                    <!-- Body -->
+                    <rect x="38" y="55" width="24" height="30" fill="#FF6F00" rx="3"/>
+                    
+                    <!-- Safety Vest -->
+                    <path d="M 38 55 L 42 75 L 58 75 L 62 55 Z" fill="#FDD835" opacity="0.3"/>
+                    <rect x="48" y="60" width="4" height="15" fill="#FDD835"/>
+                    
+                    <!-- Arms -->
+                    <rect x="32" y="58" width="6" height="20" fill="#FFCC80" rx="3"/>
+                    <rect x="62" y="58" width="6" height="20" fill="#FFCC80" rx="3"/>
+                    
+                    <!-- Legs -->
+                    <rect x="41" y="85" width="7" height="25" fill="#1565C0" rx="2"/>
+                    <rect x="52" y="85" width="7" height="25" fill="#1565C0" rx="2"/>
+                    
+                    <!-- Boots -->
+                    <ellipse cx="44.5" cy="110" rx="5" ry="3" fill="#424242"/>
+                    <ellipse cx="55.5" cy="110" rx="5" ry="3" fill="#424242"/>
+                </svg>
+
+                <!-- Step 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">1</div>
+                    <div class="timeline-content">
+                        <h3>🔐 Ingresa al Portal Mi DT</h3>
+                        <ul>
+                            <li>Ve a <strong>midt.dirtrab.cl</strong></li>
+                            <li>Haz clic en el botón <strong>"Mi DT"</strong></li>
+                            <li>Selecciona <strong>"Ingresar con ClaveÚnica"</strong></li>
+                            <li>Ingresa tu RUT y contraseña</li>
+                            <li>Elige el perfil <strong>"Trabajador"</strong></li>
+                        </ul>
+                        <a href="https://midt.dirtrab.cl/" target="_blank" class="button-primary">Ir al Portal Mi DT</a>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">2</div>
+                    <div class="timeline-content">
+                        <h3>🔍 Busca tu Finiquito</h3>
+                        <ul>
+                            <li>Ve al menú <strong>"Trámites y servicios"</strong></li>
+                            <li>Haz clic en <strong>"Contratos de trabajo y despidos"</strong></li>
+                            <li>Busca la propuesta enviada por CONSTRUCTORA B&R</li>
+                            <li>Haz clic para abrir el documento</li>
+                        </ul>
+                        <div class="alert-box">
+                            <strong>💡 Nota:</strong> Si no ves ninguna propuesta, consulta con Recursos Humanos de la empresa.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">3</div>
+                    <div class="timeline-content">
+                        <h3>📄 Lee Cuidadosamente</h3>
+                        <p><strong>Revisa toda la información:</strong></p>
+                        <ul>
+                            <li>✓ Fecha de término del contrato</li>
+                            <li>✓ Causal de término de contrato</li>
+                            <li>✓ Montos (indemnizaciones, vacaciones, etc.)</li>
+                            <li>✓ Tus datos personales</li>
+                            <li>✓ Años de antigüedad</li>
+                        </ul>
+                        <div class="alert-box">
+                            <strong>⚠️ Importante:</strong> Tómate el tiempo que necesites. No firmes si tienes dudas. Puedes consultar con RRHH o llamar al 600 450 4000 (DT).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">4</div>
+                    <div class="timeline-content">
+                        <h3>✍️ Toma una Decisión</h3>
+                        <p><strong>Tienes 3 opciones:</strong></p>
+                        
+                        <div class="success-box">
+                            <strong>✅ ACEPTAR:</strong> Si todo está correcto
+                        </div>
+                        
+                        <div class="alert-box">
+                            <strong>⚠️ ACEPTAR CON RESERVA:</strong> Si no estás de acuerdo con algo, pero quieres recibir lo que sí reconoces. Podrás reclamar después.
+                        </div>
+                        
+                        <div style="background: #FFEBEE; border-left: 5px solid #F44336; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                            <strong>❌ RECHAZAR:</strong> Si no estás de acuerdo. No recibirás el dinero hasta llegar a un nuevo acuerdo.
+                        </div>
+
+                        <div class="info-box">
+                            <strong>💡 Importante:</strong> No tienes un plazo límite para firmar, pero el empleador tiene 10 días hábiles desde tu desvinculación para poner el finiquito a tu disposición. Es recomendable revisar y decidir pronto.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">5</div>
+                    <div class="timeline-content">
+                        <h3>✅ Confirma tu Decisión</h3>
+                        <ul>
+                            <li>Haz clic en el botón según tu decisión</li>
+                            <li>Si aceptas con reserva, especifica el motivo</li>
+                            <li>Confirma la acción</li>
+                            <li>El sistema procesará tu respuesta</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">6</div>
+                    <div class="timeline-content">
+                        <h3>📥 Guarda tu Comprobante</h3>
+                        <ul>
+                            <li>Recibirás una confirmación en pantalla</li>
+                            <li>Te llegará un correo electrónico</li>
+                            <li>Descarga el PDF del finiquito firmado</li>
+                            <li>Guarda el número de folio</li>
+                        </ul>
+                        <div class="success-box">
+                            <strong>✅ ¡Listo! Conserva este documento como respaldo legal.</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step Final -->
+                <div class="timeline-item">
+                    <div class="timeline-icon" style="background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);">7</div>
+                    <div class="timeline-content">
+                        <h3>🎉 ¡Proceso Completado!</h3>
+                        <p style="font-size: 1.1em; text-align: center; color: #388E3C; font-weight: bold;">
+                            Has finalizado exitosamente el proceso de finiquito electrónico.
+                        </p>
+                        <div class="success-box" style="margin-top: 20px;">
+                            <strong>✅ Recuerda:</strong> Guarda una copia del finiquito firmado para tus registros personales.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div style="background: #E3F2FD; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #2196F3;">
+                <h4 style="color: #1565C0; margin-bottom: 10px;">📘 Sobre este instructivo</h4>
+                <p style="margin: 5px 0; color: #333;">
+                    <strong>Este es un instructivo interno creado por CONSTRUCTORA B&R Ltda.</strong> para facilitar a sus trabajadores el proceso de finiquito.
+                </p>
+                <p style="margin: 5px 0; color: #333;">
+                    Esta guía NO es una página oficial del Estado chileno. Los trámites oficiales se realizan en los sitios web del gobierno que indicamos en cada paso.
+                </p>
+            </div>
+            
+            <p><strong>Instructivo elaborado para los trabajadores de CONSTRUCTORA B&R Ltda.</strong></p>
+            <p style="margin-top: 5px;">Desarrollado por: Ing. Tabata Contreras</p>
+            <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                Para realizar el trámite oficial, visita: 
+                <a href="https://www.dt.gob.cl" target="_blank" style="color: #1976D2; font-weight: bold;">www.dt.gob.cl</a> (Dirección del Trabajo) | 
+                <a href="https://claveunica.gob.cl" target="_blank" style="color: #1976D2; font-weight: bold;">claveunica.gob.cl</a> (Clave Única)
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal for No Clave Única -->
+    <div id="noClaveModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>¿No tienes Clave Única o la olvidaste?</h2>
+                <p>Aquí te explicamos todas tus opciones</p>
+            </div>
+            <div class="modal-body">
+                <div style="background: #FFF9C4; padding: 15px; border-radius: 10px; margin-bottom: 25px; border-left: 4px solid #FFC107;">
+                    <p style="margin: 0; color: #333; font-size: 0.95em;">
+                        <strong>📘 Recuerda:</strong> Este es un instructivo de CONSTRUCTORA B&R para orientarte. Los trámites oficiales se realizan en las páginas web del gobierno que te indicamos aquí.
+                    </p>
+                </div>
+
+                <p style="font-size: 1.1em; margin-bottom: 15px; text-align: center;">
+                    <strong>La Clave Única te servirá para tu finiquito y muchos otros trámites del Estado.</strong>
+                </p>
+                
+                <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+                    <p style="margin: 0; color: #333; font-size: 0.95em;">
+                        <strong>✨ Beneficio adicional:</strong> Con tu Clave Única podrás hacer en el futuro otros trámites importantes como: 
+                        obtener certificados de antecedentes, hacer trámites en el Registro Civil, solicitar subsidios, 
+                        acceder a información de salud, realizar trámites tributarios en el SII, y cientos de servicios más del Estado. 
+                        <strong>¡Vale la pena tenerla!</strong>
+                    </p>
+                </div>
+
+                <p style="font-size: 1em; margin-bottom: 25px; text-align: center; color: #666;">
+                    Revisa tu situación y elige la opción que corresponda:
+                </p>
+
+                <!-- Option 0: Recover Clave Única -->
+                <div class="option-card" style="border: 3px solid #4CAF50;">
+                    <h3>🔑 ¿Ya tienes Clave Única pero la olvidaste? Recupérala Aquí</h3>
+                    <p>Si ya obtuviste tu Clave Única antes pero no recuerdas la contraseña, puedes recuperarla fácilmente.</p>
+                    
+                    <div class="step-list">
+                        <div class="step-list-item">
+                            <strong>1.</strong> Ingresa a <a href="https://claveunica.gob.cl/" target="_blank" style="color: #1976D2;">claveunica.gob.cl</a>
+                        </div>
+                        <div class="step-list-item">
+                            <strong>2.</strong> Haz clic en <strong>"Recupera"</strong> (debajo del botón de iniciar sesión)
+                        </div>
+                        <div class="step-list-item">
+                            <strong>3.</strong> Ingresa tu RUT
+                        </div>
+                        <div class="step-list-item">
+                            <strong>4.</strong> Selecciona <strong>"Por correo electrónico"</strong> o <strong>"Por SMS"</strong>
+                        </div>
+                        <div class="step-list-item">
+                            <strong>5.</strong> Revisa tu correo o celular y sigue las instrucciones
+                        </div>
+                        <div class="step-list-item">
+                            <strong>6.</strong> Crea tu nueva contraseña de forma segura
+                        </div>
+                        <div class="step-list-item">
+                            <strong>7.</strong> ¡Listo! Ya puedes usar tu Clave Única recuperada
+                        </div>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 15px;">
+                        <strong>✓ Rápido y fácil:</strong> La recuperación es inmediata y 100% online. No necesitas ir presencialmente.
+                    </div>
+
+                    <div class="info-box" style="margin-top: 15px;">
+                        <strong>💡 Importante:</strong> Usa una contraseña segura que incluya mayúsculas, minúsculas, números y símbolos. Guárdala en un lugar seguro.
+                    </div>
+
+                    <a href="https://claveunica.gob.cl/" target="_blank" class="button-primary" style="display: inline-block; margin-top: 15px; background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);">
+                        Recuperar mi Clave Única
+                    </a>
+                </div>
+
+                <!-- Option 2: Get Clave Única -->
+                <div class="option-card">
+                    <h3>📱 Opción 2: Obtener tu Clave Única por Primera Vez</h3>
+                    <p>Si nunca has tenido Clave Única, podrás obtenerla y firmar desde tu casa o cualquier lugar con internet.</p>
+                    
+                    <div class="step-list">
+                        <div class="step-list-item">
+                            <strong>1.</strong> Ve a <a href="https://www.registrocivil.cl/" target="_blank" style="color: #1976D2;">www.registrocivil.cl</a>
+                        </div>
+                        <div class="step-list-item">
+                            <strong>2.</strong> Haz clic en "ClaveÚnica" y luego "Iniciar trámite"
+                        </div>
+                        <div class="step-list-item">
+                            <strong>3.</strong> Completa el formulario con tu RUT, correo y celular
+                        </div>
+                        <div class="step-list-item">
+                            <strong>4.</strong> Agenda una hora (videoconferencia o presencial)
+                        </div>
+                        <div class="step-list-item">
+                            <strong>5.</strong> Asiste a tu cita con tu cédula de identidad
+                        </div>
+                        <div class="step-list-item">
+                            <strong>6.</strong> Recibe tu código de activación y actívala en <a href="https://claveunica.gob.cl/" target="_blank" style="color: #1976D2;">claveunica.gob.cl</a>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 15px;">
+                        <strong>📞 Ayuda:</strong> Mesa de Ayuda Clave Única: 101 (opción 2) | Lunes a viernes 8:00 - 20:00 hrs
+                    </div>
+
+                    <a href="https://www.registrocivil.cl/" target="_blank" class="button-primary" style="display: inline-block; margin-top: 15px;">
+                        Obtener Clave Única
+                    </a>
+                </div>
+
+                <!-- Help Section -->
+                <div style="background: #E3F2FD; padding: 25px; border-radius: 15px; margin-top: 30px; text-align: center;">
+                    <h3 style="color: #1565C0; margin-bottom: 15px;">📞 ¿Necesitas más ayuda?</h3>
+                    <p><strong>Dirección del Trabajo:</strong> 600 450 4000</p>
+                    <p style="margin-top: 5px;">Lunes a viernes 9:00-17:00 hrs</p>
+                </div>
+            </div>
+            </div> <!-- Close timeline-content-wrapper -->
+        </div>
+    </div>
+
+    <script>
+        // Funciones del modal - Optimizado para iOS Safari
+        function openModal() {
+            var modal = document.getElementById('noClaveModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            return false;
+        }
+
+        function closeModal() {
+            document.getElementById('noClaveModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            return false;
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.id == 'noClaveModal') {
+                closeModal();
+            }
+        }
+
+        // CRÍTICO para iOS - Event listeners touch
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.no-clave-button');
+            if (btn) {
+                // Touch events para iOS Safari
+                btn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openModal();
+                }, false);
+            }
+        });
+
+        // Worker animation - PASO A PASO CON PARADAS INTERMEDIAS
+        function moveWorker() {
+            const worker = document.getElementById('worker');
+            const timeline = document.querySelector('.timeline');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            if (!worker || !timeline || timelineItems.length === 0) return;
+            
+            // Obtener posición del scroll
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Obtener posición del timeline
+            const timelineOffset = timeline.offsetTop;
+            const timelineHeight = timeline.offsetHeight;
+            
+            // Calcular posiciones de cada paso
+            const stepPositions = [];
+            timelineItems.forEach((item, index) => {
+                const itemOffset = item.offsetTop - timelineOffset;
+                stepPositions.push(itemOffset);
+            });
+            
+            // Agregar paradas intermedias (2 entre cada paso)
+            const allStops = [];
+            for (let i = 0; i < stepPositions.length - 1; i++) {
+                const currentPos = stepPositions[i];
+                const nextPos = stepPositions[i + 1];
+                const distance = nextPos - currentPos;
+                
+                // Agregar el paso actual
+                allStops.push(currentPos);
+                // Agregar primera parada intermedia (1/3 del camino)
+                allStops.push(currentPos + distance / 3);
+                // Agregar segunda parada intermedia (2/3 del camino)
+                allStops.push(currentPos + (distance * 2) / 3);
+            }
+            // Agregar el último paso (FIN)
+            allStops.push(stepPositions[stepPositions.length - 1]);
+            
+            // Calcular cuánto hemos scrolleado dentro del timeline (mejorado)
+            const scrollInTimeline = scrollTop - timelineOffset + (windowHeight / 2);
+            
+            // Calcular en qué parada estamos
+            const totalStops = allStops.length;
+            const progress = scrollInTimeline / timelineHeight;
+            
+            // Si estamos cerca del final del documento, forzar que vaya al último paso
+            const scrollProgress = scrollTop / (documentHeight - windowHeight);
+            
+            let currentStop;
+            if (scrollProgress > 0.95) {
+                // Estamos muy cerca del final, ir al último paso
+                currentStop = totalStops - 1;
+            } else {
+                // Calcular normalmente
+                currentStop = Math.floor(progress * totalStops);
+                currentStop = Math.max(0, Math.min(totalStops - 1, currentStop));
+            }
+            
+            // Posicionar el worker en la parada actual
+            const targetPosition = allStops[currentStop] || 0;
+            worker.style.top = targetPosition + 'px';
+        }
+
+        // Ejecutar al hacer scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(moveWorker, 100);
+        });
+
+        // Ejecutar al cargar la página
+        window.addEventListener('load', moveWorker);
+
+        // Ejecutar al cambiar tamaño de ventana
+        window.addEventListener('resize', moveWorker);
+
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // ========== SISTEMA DE LOGIN - JSONP (COMPATIBLE CON TODOS LOS MÓVILES) ========== 
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAXFwMe2ERPNhEQQNfn4dU9_QeLqnVA1MAtAu5gJTPPU1wFOYUhCkSDzjCgVDZPiTwZg/exec';
+
+        function normalizarTexto(texto) {
+            return texto
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            validarUsuario();
+        });
+
+        // Función JSONP - Compatible con Safari, Chrome móvil, WhatsApp
+        function peticionJSONP(url, callback) {
+            const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(null, data);
+            };
+            
+            const script = document.createElement('script');
+            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+            script.onerror = function() {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(new Error('Error de red'), null);
+            };
+            
+            // Timeout de 15 segundos
+            setTimeout(function() {
+                if (window[callbackName]) {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    callback(new Error('Timeout'), null);
+                }
+            }, 15000);
+            
+            document.body.appendChild(script);
+        }
+
+        function validarUsuario() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido1 = document.getElementById('apellido1').value.trim();
+            const apellido2 = document.getElementById('apellido2').value.trim();
+            const loginButton = document.getElementById('loginButton');
+            const errorMessage = document.getElementById('errorMessage');
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            if (!nombre || !apellido1 || !apellido2) {
+                errorMessage.textContent = '❌ Por favor completa todos los campos.';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            loginButton.disabled = true;
+            loginButton.textContent = 'Verificando...';
+            errorMessage.classList.remove('show');
+            loadingMessage.textContent = '🔄 Validando credenciales...';
+            loadingMessage.classList.add('show');
+
+            // Construir URL con parámetros
+            const params = '?nombre=' + encodeURIComponent(nombre) + 
+                          '&apellido1=' + encodeURIComponent(apellido1) + 
+                          '&apellido2=' + encodeURIComponent(apellido2) +
+                          '&t=' + new Date().getTime();
+            
+            const url = APPS_SCRIPT_URL + params;
+
+            // Llamar con JSONP
+            peticionJSONP(url, function(error, resultado) {
+                if (error) {
+                    loadingMessage.classList.remove('show');
+                    errorMessage.textContent = '❌ Error de conexión. Verifica tu internet e intenta nuevamente.';
+                    errorMessage.classList.add('show');
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Reintentar';
+                    console.error('Error:', error);
+                    return;
+                }
+
+                if (resultado.success === true) {
+                    loadingMessage.textContent = '✓ ¡Acceso concedido!';
+                    setTimeout(function() {
+                        document.getElementById('loginScreen').style.display = 'none';
+                        document.getElementById('instructivoContent').style.display = 'block';
+                        window.scrollTo(0, 0);
+                        setTimeout(moveWorker, 100);
+                    }, 800);
+                } else {
+                    loadingMessage.classList.remove('show');
+                    errorMessage.textContent = '❌ No te encontramos en nuestra lista. Por favor verifica tus datos o contacta a RRHH.';
+                    errorMessage.classList.add('show');
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Acceder al Instructivo';
+                }
+            });
+        }
+    </script>
+    </div> <!-- Cierre de instructivoContent -->
+</body>
+</html>
